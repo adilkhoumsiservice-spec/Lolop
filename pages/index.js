@@ -4,33 +4,41 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div style={styles.container}>
+      {/* Header */}
       <header style={styles.header}>
-        <h1 style={styles.title}>أخبار يومية حصرية</h1>
-        <nav style={styles.nav}>
-          <Link href="/">الرئيسية</Link>
-          <Link href="/privacy">سياسة الخصوصية</Link>
-          <Link href="/about">من نحن</Link>
-          <Link href="/contact">اتصل بنا</Link>
-        </nav>
+        <div style={styles.headerContent}>
+          <h1 style={styles.title}>Daily Exclusive News</h1>
+          <nav style={styles.nav}>
+            <Link href="/" style={styles.navLink}>Home</Link>
+            <Link href="/privacy" style={styles.navLink}>Privacy Policy</Link>
+            <Link href="/about" style={styles.navLink}>About Us</Link>
+            <Link href="/contact" style={styles.navLink}>Contact</Link>
+          </nav>
+        </div>
       </header>
 
+      {/* Main Content */}
       <main style={styles.main}>
-        <h2 style={styles.sectionTitle}>آخر الأخبار</h2>
-        <ul style={styles.newsList}>
-          <li>
-            <Link href="/news/article1">عنوان خبر تجريبي 1</Link>
-          </li>
-          <li>
-            <Link href="/news/article2">عنوان خبر تجريبي 2</Link>
-          </li>
-          <li>
-            <Link href="/news/article3">عنوان خبر تجريبي 3</Link>
-          </li>
-        </ul>
+        <h2 style={styles.sectionTitle}>Latest News</h2>
+        <div style={styles.newsGrid}>
+          <Link href="/news/article1" style={styles.newsCard}>
+            <h3>Breaking News Headline 1</h3>
+            <p>Short description for the first news article...</p>
+          </Link>
+          <Link href="/news/article2" style={styles.newsCard}>
+            <h3>Breaking News Headline 2</h3>
+            <p>Short description for the second news article...</p>
+          </Link>
+          <Link href="/news/article3" style={styles.newsCard}>
+            <h3>Breaking News Headline 3</h3>
+            <p>Short description for the third news article...</p>
+          </Link>
+        </div>
       </main>
 
+      {/* Footer */}
       <footer style={styles.footer}>
-        <p>© {new Date().getFullYear()} جميع الحقوق محفوظة</p>
+        <p>© {new Date().getFullYear()} Daily Exclusive News. All rights reserved.</p>
       </footer>
     </div>
   );
@@ -38,18 +46,25 @@ export default function Home() {
 
 const styles = {
   container: {
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f8fafc",
-    color: "#1e293b",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    backgroundColor: "#f5f7fa",
+    color: "#333",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
   },
   header: {
-    backgroundColor: "#1e293b",
+    backgroundColor: "#1a1a1a",
     color: "#fff",
-    padding: "20px",
-    textAlign: "center",
+    padding: "15px 0",
+  },
+  headerContent: {
+    width: "90%",
+    maxWidth: "1100px",
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   title: {
     margin: "0 0 10px",
@@ -57,30 +72,49 @@ const styles = {
   },
   nav: {
     display: "flex",
+    gap: "20px",
+    flexWrap: "wrap",
     justifyContent: "center",
-    gap: "15px",
+  },
+  navLink: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "16px",
+    transition: "color 0.3s ease",
   },
   main: {
     flex: 1,
-    padding: "20px",
-    maxWidth: "800px",
+    padding: "30px 5%",
+    maxWidth: "1100px",
     margin: "0 auto",
   },
   sectionTitle: {
     fontSize: "22px",
-    marginBottom: "15px",
-    borderBottom: "2px solid #1e293b",
+    marginBottom: "20px",
+    borderBottom: "2px solid #1a1a1a",
     paddingBottom: "5px",
   },
-  newsList: {
-    listStyle: "none",
-    padding: 0,
+  newsGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "20px",
+  },
+  newsCard: {
+    backgroundColor: "#fff",
+    padding: "15px",
+    borderRadius: "8px",
+    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    textDecoration: "none",
+    color: "#333",
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
   },
   footer: {
-    backgroundColor: "#1e293b",
-    color: "#cbd5e1",
+    backgroundColor: "#1a1a1a",
+    color: "#ccc",
     textAlign: "center",
-    padding: "10px",
+    padding: "15px",
     fontSize: "14px",
   },
 };
+
+// Add hover effect for links (in global.css or via styled-jsx)
