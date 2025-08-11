@@ -1,40 +1,68 @@
-import fs from "fs";
-import path from "path";
-import Head from "next/head";
+// pages/index.js
+import Head from 'next/head'
 
-export async function getStaticProps() {
-  const p = path.join(process.cwd(), "data", "articles.json");
-  let data = { updatedAt: null, articles: [] };
-  try {
-    const raw = fs.readFileSync(p, "utf-8");
-    if (raw) data = JSON.parse(raw);
-  } catch (e) {
-    data = { updatedAt: null, articles: [] };
-  }
-  return {
-    props: { data },
-    revalidate: 3600,
-  };
-}
-
-export default function Home({ data }) {
-  const articles = Array.isArray(data.articles) ? data.articles : [];
-  const updatedAt = data.updatedAt || null;
+export default function Home() {
+  const articles = [
+    {
+      url: "https://example.com/article1",
+      title: "أول مقال تجريبي",
+      summary: "هذا ملخص قصير للمقال الأول لتوضيح شكل المحتوى.",
+      source: "Example News"
+    },
+    {
+      url: "https://example.com/article2",
+      title: "ثاني مقال تجريبي",
+      summary: "هذا ملخص قصير للمقال الثاني مع تفاصيل إضافية.",
+      source: "Example Blog"
+    }
+  ];
 
   return (
-    <>
+    <div style={{fontFamily:"Arial, sans-serif", maxWidth:800, margin:"0 auto", padding:20}}>
       <Head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Daily AI News</title>
+        <title>موقعي</title>
+        <meta name="description" content="موقع تجريبي مع مقالات وروابط" />
       </Head>
 
-      <header className="site-header">
-        <h1>Daily AI News</h1>
-        <p className="subtitle">Fresh English news rewritten by AI</p>
-        {updatedAt && (
-          <div className="updated">Last update: {new Date(updatedAt).toLocaleString()}</div>
-        )}
+      <header style={{textAlign:"center", marginBottom:30}}>
+        <h1 style={{color:"#0b3d91"}}>مرحباً بك في موقعي</h1>
+        <p style={{color:"#555"}}>هنا ستجد أحدث المقالات والمحتوى المميز.</p>
+      </header>
+
+      <main>
+        {articles.map((a, index) => (
+          <article 
+            key={index} 
+            style={{
+              marginBottom:20, 
+              padding:15, 
+              border:"1px solid #ddd", 
+              borderRadius:5,
+              backgroundColor:"#fff"
+            }}
+          >
+            <h2>
+              <a href={a.url} target="_blank" rel="noreferrer" style={{color:"#0b3d91", textDecoration:"none"}}>
+                {a.title}
+              </a>
+            </h2>
+            <p>{a.summary}</p>
+            <div style={{marginTop:10, fontSize:13, color:"#94a3b8"}}>
+              {a.source}
+            </div>
+          </article>
+        ))}
+      </main>
+
+      <footer style={{marginTop:50, textAlign:"center", fontSize:14, color:"#aaa"}}>
+        <a href="/privacy-policy" style={{margin:"0 10px"}}>Privacy Policy</a> | 
+        <a href="/terms" style={{margin:"0 10px"}}>Terms & Conditions</a>
+        <br />
+        © {new Date().getFullYear()} موقعك - جميع الحقوق محفوظة
+      </footer>
+    </div>
+  );
+}        )}
       </header>
 
       <main className="container">
