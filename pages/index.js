@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Parser from "rss-parser";
+import Head from "next/head";
 
 export default function HomePage() {
   const [articles, setArticles] = useState([]);
@@ -19,14 +20,24 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", background: "#f4f4f4" }}>
+    <div style={{ fontFamily: "Arial, sans-serif", background: "#ffffff" }}>
+      <Head>
+        <title>Daily Exclusive News</title>
+      </Head>
+
       {/* Header */}
-      <header style={{ background: "#111", color: "#fff", padding: "15px 20px" }}>
+      <header
+        style={{
+          background: "#0056b3", // أزرق غامق
+          color: "#fff",
+          padding: "15px 20px",
+        }}
+      >
         <h1 style={{ margin: 0 }}>Daily Exclusive News</h1>
         <nav>
-          <Link href="/" style={{ color: "#fff", marginRight: "15px" }}>Home</Link>
-          <Link href="/privacy" style={{ color: "#fff", marginRight: "15px" }}>Privacy Policy</Link>
-          <Link href="/about" style={{ color: "#fff" }}>About Us</Link>
+          <Link href="/" style={{ color: "#fff", marginRight: "15px" }}>
+            Home
+          </Link>
         </nav>
       </header>
 
@@ -35,18 +46,23 @@ export default function HomePage() {
         {articles.length === 0 ? (
           <p>Loading latest news...</p>
         ) : (
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "20px"
-          }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
             {articles.map((item, index) => (
-              <div key={index} style={{
-                background: "#fff",
-                padding: "15px",
-                borderRadius: "10px",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-              }}>
+              <div
+                key={index}
+                style={{
+                  background: "#e6f0ff", // أزرق فاتح
+                  padding: "15px",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                }}
+              >
                 {item.enclosure?.url && (
                   <img
                     src={item.enclosure.url}
@@ -63,8 +79,8 @@ export default function HomePage() {
                   style={{
                     display: "inline-block",
                     marginTop: "10px",
-                    color: "#0070f3",
-                    fontWeight: "bold"
+                    color: "#0056b3",
+                    fontWeight: "bold",
                   }}
                 >
                   Read More →
@@ -76,17 +92,26 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer style={{
-        background: "#111",
-        color: "#fff",
-        padding: "20px",
-        textAlign: "center",
-        marginTop: "40px"
-      }}>
-        <p>© {new Date().getFullYear()} Daily Exclusive News. All Rights Reserved.</p>
+      <footer
+        style={{
+          background: "#0056b3",
+          color: "#fff",
+          padding: "20px",
+          textAlign: "center",
+          marginTop: "40px",
+        }}
+      >
+        <p>
+          © {new Date().getFullYear()} Daily Exclusive News. All Rights
+          Reserved.
+        </p>
         <nav>
-          <Link href="/privacy" style={{ color: "#fff", marginRight: "15px" }}>Privacy Policy</Link>
-          <Link href="/about" style={{ color: "#fff" }}>About Us</Link>
+          <Link href="/privacy" style={{ color: "#fff", marginRight: "15px" }}>
+            Privacy Policy
+          </Link>
+          <Link href="/about" style={{ color: "#fff" }}>
+            About Us
+          </Link>
         </nav>
       </footer>
     </div>
