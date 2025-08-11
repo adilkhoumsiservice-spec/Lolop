@@ -1,4 +1,3 @@
-// pages/index.js
 import Link from "next/link";
 
 export default function Home() {
@@ -6,39 +5,42 @@ export default function Home() {
     <div style={styles.container}>
       {/* Header */}
       <header style={styles.header}>
-        <div style={styles.headerContent}>
-          <h1 style={styles.title}>Daily Exclusive News</h1>
-          <nav style={styles.nav}>
-            <Link href="/" style={styles.navLink}>Home</Link>
-            <Link href="/privacy" style={styles.navLink}>Privacy Policy</Link>
-            <Link href="/about" style={styles.navLink}>About Us</Link>
-            <Link href="/contact" style={styles.navLink}>Contact</Link>
-          </nav>
-        </div>
+        <h1 style={styles.title}>Daily Exclusive News</h1>
+        <nav style={styles.nav}>
+          <Link href="/" style={styles.navLink}>Home</Link>
+          <Link href="/about" style={styles.navLink}>About</Link>
+          <Link href="/contact" style={styles.navLink}>Contact</Link>
+        </nav>
       </header>
 
       {/* Main Content */}
       <main style={styles.main}>
-        <h2 style={styles.sectionTitle}>Latest News</h2>
-        <div style={styles.newsGrid}>
-          <Link href="/news/article1" style={styles.newsCard}>
-            <h3>Breaking News Headline 1</h3>
-            <p>Short description for the first news article...</p>
-          </Link>
-          <Link href="/news/article2" style={styles.newsCard}>
-            <h3>Breaking News Headline 2</h3>
-            <p>Short description for the second news article...</p>
-          </Link>
-          <Link href="/news/article3" style={styles.newsCard}>
-            <h3>Breaking News Headline 3</h3>
-            <p>Short description for the third news article...</p>
-          </Link>
-        </div>
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>Latest Headlines</h2>
+          <p style={styles.text}>
+            Stay updated with the latest and most exclusive news from around the world. 
+            Our team works 24/7 to bring you accurate, fast, and trusted information.
+          </p>
+        </section>
+
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>Why Choose Us?</h2>
+          <ul style={styles.list}>
+            <li>✔ Reliable and verified sources</li>
+            <li>✔ Real-time updates</li>
+            <li>✔ Easy to read and navigate</li>
+          </ul>
+        </section>
       </main>
 
       {/* Footer */}
       <footer style={styles.footer}>
-        <p>© {new Date().getFullYear()} Daily Exclusive News. All rights reserved.</p>
+        <p style={styles.footerText}>© {new Date().getFullYear()} Daily Exclusive News. All rights reserved.</p>
+        <div style={styles.footerLinks}>
+          <Link href="/privacy" style={styles.footerLink}>Privacy Policy</Link>
+          <Link href="/terms" style={styles.footerLink}>Terms of Service</Link>
+          <Link href="/contact" style={styles.footerLink}>Contact Us</Link>
+        </div>
       </footer>
     </div>
   );
@@ -46,75 +48,76 @@ export default function Home() {
 
 const styles = {
   container: {
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    backgroundColor: "#f5f7fa",
+    fontFamily: "Arial, sans-serif",
+    margin: 0,
+    padding: 0,
+    backgroundColor: "#f9f9f9",
     color: "#333",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
   },
   header: {
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#004080",
+    padding: "20px",
     color: "#fff",
-    padding: "15px 0",
-  },
-  headerContent: {
-    width: "90%",
-    maxWidth: "1100px",
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    textAlign: "center",
   },
   title: {
-    margin: "0 0 10px",
+    margin: "0 0 10px 0",
     fontSize: "28px",
   },
   nav: {
     display: "flex",
-    gap: "20px",
-    flexWrap: "wrap",
     justifyContent: "center",
+    gap: "15px",
   },
   navLink: {
     color: "#fff",
     textDecoration: "none",
     fontSize: "16px",
-    transition: "color 0.3s ease",
   },
   main: {
-    flex: 1,
-    padding: "30px 5%",
-    maxWidth: "1100px",
+    padding: "20px",
+    maxWidth: "900px",
     margin: "0 auto",
+  },
+  section: {
+    marginBottom: "30px",
+    backgroundColor: "#fff",
+    padding: "20px",
+    borderRadius: "8px",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
   },
   sectionTitle: {
     fontSize: "22px",
-    marginBottom: "20px",
-    borderBottom: "2px solid #1a1a1a",
-    paddingBottom: "5px",
+    marginBottom: "10px",
   },
-  newsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-    gap: "20px",
+  text: {
+    fontSize: "16px",
+    lineHeight: "1.6",
   },
-  newsCard: {
-    backgroundColor: "#fff",
-    padding: "15px",
-    borderRadius: "8px",
-    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-    textDecoration: "none",
-    color: "#333",
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+  list: {
+    paddingLeft: "20px",
+    fontSize: "16px",
+    lineHeight: "1.6",
   },
   footer: {
-    backgroundColor: "#1a1a1a",
-    color: "#ccc",
-    textAlign: "center",
+    backgroundColor: "#00264d",
+    color: "#fff",
     padding: "15px",
+    textAlign: "center",
+    marginTop: "40px",
+  },
+  footerText: {
+    margin: "0 0 10px 0",
+    fontSize: "14px",
+  },
+  footerLinks: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "15px",
+  },
+  footerLink: {
+    color: "#fff",
+    textDecoration: "none",
     fontSize: "14px",
   },
 };
-
-// Add hover effect for links (in global.css or via styled-jsx)
