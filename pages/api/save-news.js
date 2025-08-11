@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import axios from "axios";
 
 // الاتصال بـ MongoDB
-const MONGO_URI = "mongodb+srv://<adil>:<adilosizar111109>@cluster0.tfuppkw.mongodb.net/";
+const MONGO_URI = "mongodb+srv://<adil>:<adilosizar111109>@cluster0.tfuppkw.mongodb.net/?retryWrites=true&w=majority";
 if (!mongoose.connection.readyState) {
   mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -23,20 +23,23 @@ export default async function handler(req, res) {
     // 1. جلب الأخبار من مصدر مجاني
     const { data } = await axios.get("https://inshortsapi.vercel.app/news?category=technology");
 
-    // 2. حفظ الأخبار الجديدة في قاعدة البيانات
+    // 2. حفظ الأخبار الجديدة في قاعدة البيانات (بدون روابط خارجية)
     for (let item of data.data) {
       const exists = await News.findOne({ title: item.title });
       if (!exists) {
+        // إزالة أي روابط من النص
+        const cleanContent = item.content.replace(/https?:\/\/[^\s]+/g, "");
+
         await News.create({
-          title: item.title,
-          content: item.content,
+          title: item.title.trim(),
+          content: cleanContent.trim(),
           date: new Date()
         });
       }
     }
 
     // 3. جلب كل الأخبار من قاعدة البيانات (أحدث أولاً)
-    const news = await News.find().sort({ date: -1 }).limit(20);
+    const news = await News.find().sort({ date: -1 }).limit(50);
 
     // 4. إرسالها للواجهة
     res.status(200).json(news);
