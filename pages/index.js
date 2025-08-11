@@ -1,4 +1,3 @@
-// pages/index.js
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Parser from "rss-parser";
@@ -15,6 +14,17 @@ export default function HomePage() {
         CORS_PROXY + "http://feeds.bbci.co.uk/news/rss.xml"
       );
       setArticles(feed.items);
+
+      // إرسال الأخبار إلى MongoDB
+      try {
+        await fetch("/api/save-news", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(feed.items),
+        });
+      } catch (err) {
+        console.error("Error saving to DB:", err);
+      }
     };
     fetchRSS();
   }, []);
