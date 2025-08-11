@@ -7,13 +7,15 @@ export default function Home() {
       url: "https://example.com/article1",
       title: "أول مقال تجريبي",
       summary: "هذا ملخص قصير للمقال الأول لتوضيح شكل المحتوى.",
-      source: "Example News"
+      source: "Example News",
+      publishedAt: new Date().toISOString()
     },
     {
       url: "https://example.com/article2",
       title: "ثاني مقال تجريبي",
       summary: "هذا ملخص قصير للمقال الثاني مع تفاصيل إضافية.",
-      source: "Example Blog"
+      source: "Example Blog",
+      publishedAt: new Date().toISOString()
     }
   ];
 
@@ -35,6 +37,34 @@ export default function Home() {
             key={index} 
             style={{
               marginBottom:20, 
+              padding:15, 
+              border:"1px solid #ddd", 
+              borderRadius:5,
+              backgroundColor:"#fff"
+            }}
+          >
+            <h2>
+              <a href={a.url} target="_blank" rel="noreferrer" style={{color:"#0b3d91", textDecoration:"none"}}>
+                {a.title}
+              </a>
+            </h2>
+            <p>{a.summary}</p>
+            <div style={{marginTop:10, fontSize:13, color:"#94a3b8"}}>
+              {a.source} · {new Date(a.publishedAt).toLocaleString()}
+            </div>
+          </article>
+        ))}
+      </main>
+
+      <footer style={{marginTop:50, textAlign:"center", fontSize:14, color:"#aaa"}}>
+        <a href="/privacy-policy" style={{margin:"0 10px"}}>Privacy Policy</a> | 
+        <a href="/terms" style={{margin:"0 10px"}}>Terms & Conditions</a>
+        <br />
+        © {new Date().getFullYear()} موقعك - جميع الحقوق محفوظة
+      </footer>
+    </div>
+  );
+}              marginBottom:20, 
               padding:15, 
               border:"1px solid #ddd", 
               borderRadius:5,
