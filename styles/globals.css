@@ -1,5 +1,25 @@
+/* styles/globals.css - قواعد أساسية لا تكسر التصميم */
+:root {
+  --primary: #0056b3;
+  --light: #ffffff;
+}
+
+* { box-sizing: border-box; }
+html, body, #__next { height: 100%; }
 body {
   margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--light);
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* احتياطات بسيطة للهيدر والفوتر في حال اعتمدت أنماط مضمّنة */
+header { background: var(--primary); color: var(--light); }
+footer { background: var(--primary); color: var(--light); }
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; display: block; }
