@@ -28,14 +28,14 @@ export default function HomePage() {
       {/* Header */}
       <header
         style={{
-          background: "#0056b3", // أزرق غامق
+          background: "#0056b3",
           color: "#fff",
           padding: "15px 20px",
         }}
       >
         <h1 style={{ margin: 0 }}>Daily Exclusive News</h1>
         <nav>
-          <Link href="/" style={{ color: "#fff", marginRight: "15px" }}>
+          <Link href="/" style={{ color: "#fff" }}>
             Home
           </Link>
         </nav>
@@ -57,7 +57,7 @@ export default function HomePage() {
               <div
                 key={index}
                 style={{
-                  background: "#e6f0ff", // أزرق فاتح
+                  background: "#e6f0ff",
                   padding: "15px",
                   borderRadius: "10px",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
