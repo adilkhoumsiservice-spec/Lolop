@@ -1,23 +1,17 @@
+// pages/_document.js
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* تحسينات SEO أساسية */}
-        <title>أخبار الذكاء الاصطناعي - سريع ودقيق</title>
-        <meta name="description" content="تابع آخر أخبار الذكاء الاصطناعي بسرعة ودقة مع تحديثات فورية ومقالات حصرية." />
-        <meta name="keywords" content="الذكاء الاصطناعي, أخبار, تقنية, AI news, artificial intelligence" />
+        <meta charSet="utf-8" />
         <meta name="robots" content="index, follow" />
-
-        {/* Open Graph للسوشيال ميديا */}
-        <meta property="og:title" content="أخبار الذكاء الاصطناعي" />
-        <meta property="og:description" content="آخر الأخبار والمقالات حول الذكاء الاصطناعي." />
+        <meta name="theme-color" content="#0056b3" />
+        <meta property="og:site_name" content="Daily Exclusive News" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://usacargo.business" />
-        <meta property="og:image" content="https://usacargo.business/og-image.jpg" />
 
-        {/* كود Google AdSense */}
+        {/* AdSense verification + Auto Ads script */}
         <meta name="google-adsense-account" content="ca-pub-8551068222525793" />
         <script
           async
