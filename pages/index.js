@@ -1,46 +1,72 @@
+// pages/index.js
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const res = await fetch(
+          `https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY`
+        );
+        const data = await res.json();
+        setArticles(data.articles || []);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        setLoading(false);
+      }
+    }
+    fetchNews();
+  }, []);
+
   return (
     <div style={styles.container}>
       {/* Header */}
       <header style={styles.header}>
         <h1 style={styles.title}>Daily Exclusive News</h1>
         <nav style={styles.nav}>
-          <Link href="/" style={styles.navLink}>Home</Link>
-          <Link href="/about" style={styles.navLink}>About</Link>
-          <Link href="/contact" style={styles.navLink}>Contact</Link>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
         </nav>
       </header>
 
-      {/* Main Content */}
+      {/* News Section */}
       <main style={styles.main}>
-        <section style={styles.section}>
-          <h2 style={styles.sectionTitle}>Latest Headlines</h2>
-          <p style={styles.text}>
-            Stay updated with the latest and most exclusive news from around the world. 
-            Our team works 24/7 to bring you accurate, fast, and trusted information.
-          </p>
-        </section>
-
-        <section style={styles.section}>
-          <h2 style={styles.sectionTitle}>Why Choose Us?</h2>
-          <ul style={styles.list}>
-            <li>✔ Reliable and verified sources</li>
-            <li>✔ Real-time updates</li>
-            <li>✔ Easy to read and navigate</li>
-          </ul>
-        </section>
+        {loading ? (
+          <p>Loading latest news...</p>
+        ) : (
+          articles.map((article, index) => (
+            <div key={index} style={styles.card}>
+              {article.urlToImage && (
+                <img
+                  src={article.urlToImage}
+                  alt={article.title}
+                  style={styles.image}
+                />
+              )}
+              <h2 style={styles.cardTitle}>{article.title}</h2>
+              <p>{article.description}</p>
+              <a href={article.url} target="_blank" rel="noopener noreferrer">
+                Read more
+              </a>
+            </div>
+          ))
+        )}
       </main>
 
       {/* Footer */}
       <footer style={styles.footer}>
-        <p style={styles.footerText}>© {new Date().getFullYear()} Daily Exclusive News. All rights reserved.</p>
-        <div style={styles.footerLinks}>
-          <Link href="/privacy" style={styles.footerLink}>Privacy Policy</Link>
-          <Link href="/terms" style={styles.footerLink}>Terms of Service</Link>
-          <Link href="/contact" style={styles.footerLink}>Contact Us</Link>
-        </div>
+        <Link href="/privacy">Privacy Policy</Link>
+        <Link href="/terms">Terms of Service</Link>
+        <Link href="/about">About Us</Link>
+        <p style={{ marginTop: "10px" }}>
+          © {new Date().getFullYear()} Daily Exclusive News
+        </p>
       </footer>
     </div>
   );
@@ -49,75 +75,53 @@ export default function Home() {
 const styles = {
   container: {
     fontFamily: "Arial, sans-serif",
-    margin: 0,
-    padding: 0,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f4f4f4",
     color: "#333",
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
   },
   header: {
-    backgroundColor: "#004080",
-    padding: "20px",
+    backgroundColor: "#1a202c",
     color: "#fff",
+    padding: "20px",
     textAlign: "center",
   },
   title: {
-    margin: "0 0 10px 0",
-    fontSize: "28px",
+    margin: "0",
+    fontSize: "2rem",
   },
   nav: {
+    marginTop: "10px",
     display: "flex",
     justifyContent: "center",
     gap: "15px",
   },
-  navLink: {
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "16px",
-  },
   main: {
+    flex: 1,
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gap: "20px",
     padding: "20px",
-    maxWidth: "900px",
-    margin: "0 auto",
   },
-  section: {
-    marginBottom: "30px",
+  card: {
     backgroundColor: "#fff",
-    padding: "20px",
+    padding: "15px",
     borderRadius: "8px",
     boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
   },
-  sectionTitle: {
-    fontSize: "22px",
-    marginBottom: "10px",
+  cardTitle: {
+    fontSize: "1.2rem",
+    margin: "10px 0",
   },
-  text: {
-    fontSize: "16px",
-    lineHeight: "1.6",
-  },
-  list: {
-    paddingLeft: "20px",
-    fontSize: "16px",
-    lineHeight: "1.6",
+  image: {
+    width: "100%",
+    borderRadius: "8px",
   },
   footer: {
-    backgroundColor: "#00264d",
+    backgroundColor: "#1a202c",
     color: "#fff",
-    padding: "15px",
     textAlign: "center",
-    marginTop: "40px",
-  },
-  footerText: {
-    margin: "0 0 10px 0",
-    fontSize: "14px",
-  },
-  footerLinks: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "15px",
-  },
-  footerLink: {
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "14px",
+    padding: "15px",
   },
 };
