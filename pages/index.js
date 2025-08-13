@@ -1,129 +1,162 @@
+// pages/index.js
 import { useEffect, useState } from "react";
+import Script from "next/script";
 
-export default function Home() {
+export default function HomePage() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("/api/news")
-      .then((res) => res.json())
-      .then((data) => setNews(data))
-      .catch((err) => console.error(err));
+    // Example data - Replace with your API call
+    setNews([
+      {
+        title: "Tech Innovation Changes the World",
+        content: "Latest technological advancements are shaping our future in remarkable ways.",
+        date: "2025-08-13"
+      },
+      {
+        title: "AI Breakthrough in Healthcare",
+        content: "Artificial intelligence is now diagnosing diseases faster and more accurately.",
+        date: "2025-08-12"
+      },
+      {
+        title: "SpaceX Successfully Lands Starship",
+        content: "A new milestone in space exploration has been achieved.",
+        date: "2025-08-11"
+      }
+    ]);
   }, []);
 
   return (
     <div style={styles.container}>
-      {/* AdSense أعلى */}
-      <div style={styles.ads}>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8551068222525793"
-          crossOrigin="anonymous"
-        ></script>
-      </div>
+      {/* Google AdSense */}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8551068222525793"
+        crossOrigin="anonymous"
+      />
 
-      <h1 style={styles.title}>Tech News</h1>
+      {/* Header */}
+      <header style={styles.header}>
+        <h1 style={styles.siteTitle}>Global Tech Today</h1>
+        <nav style={styles.nav}>
+          <a href="/" style={styles.navLink}>Home</a>
+          <a href="#news" style={styles.navLink}>News</a>
+          <a href="/contact" style={styles.navLink}>Contact Us</a>
+          <a href="/privacy" style={styles.navLink}>Privacy Policy</a>
+        </nav>
+      </header>
 
-      <div style={styles.newsList}>
-        {news.length > 0 ? (
-          news.map((item, index) => (
-            <div key={index} style={styles.card}>
-              <h2 style={styles.cardTitle}>{item.title}</h2>
-              <p style={styles.cardContent}>{item.content}</p>
-              <span style={styles.date}>
+      {/* News Section */}
+      <main style={styles.main}>
+        <h2 style={styles.sectionTitle} id="news">Latest News</h2>
+        <div style={styles.newsList}>
+          {news.map((item, index) => (
+            <div key={index} style={styles.newsCard}>
+              <h3 style={styles.newsTitle}>{item.title}</h3>
+              <p style={styles.newsContent}>{item.content}</p>
+              <span style={styles.newsDate}>
                 {new Date(item.date).toLocaleDateString()}
               </span>
             </div>
-          ))
-        ) : (
-          <p style={styles.loading}>Loading news...</p>
-        )}
-      </div>
-
-      {/* AdSense أسفل */}
-      <div style={styles.ads}>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8551068222525793"
-          crossOrigin="anonymous"
-        ></script>
-      </div>
+          ))}
+        </div>
+      </main>
 
       {/* Footer */}
       <footer style={styles.footer}>
-        <a href="/contact" style={styles.footerLink}>Contact Us</a> |{" "}
-        <a href="/privacy" style={styles.footerLink}>Privacy Policy</a>
-        <p style={styles.copy}>© {new Date().getFullYear()} Tech News</p>
+        <div>
+          <a href="/contact" style={styles.footerLink}>Contact Us</a> |{" "}
+          <a href="/privacy" style={styles.footerLink}>Privacy Policy</a>
+        </div>
+        <p style={styles.footerText}>© {new Date().getFullYear()} Global Tech Today. All rights reserved.</p>
       </footer>
     </div>
   );
 }
 
+// CSS in JS Styles
 const styles = {
   container: {
-    fontFamily: "'Segoe UI', sans-serif",
-    padding: "20px",
-    backgroundColor: "#f9f9f9",
-    color: "#333",
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    backgroundColor: "#f8f9fa",
+    color: "#212529",
+    margin: 0,
+    padding: 0
   },
-  title: {
+  header: {
+    backgroundColor: "#0d6efd",
+    padding: "20px",
     textAlign: "center",
-    fontSize: "2.5rem",
+    color: "white",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+  },
+  siteTitle: {
+    margin: "0 0 10px",
+    fontSize: "2rem"
+  },
+  nav: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px"
+  },
+  navLink: {
+    color: "white",
+    textDecoration: "none",
+    fontWeight: "bold",
+    fontSize: "1rem"
+  },
+  main: {
+    maxWidth: "1000px",
+    margin: "20px auto",
+    padding: "0 20px"
+  },
+  sectionTitle: {
+    fontSize: "1.8rem",
     marginBottom: "20px",
-    color: "#007BFF",
+    color: "#0d6efd"
   },
   newsList: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-    gap: "20px",
-    flex: 1,
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: "20px"
   },
-  card: {
-    background: "#fff",
+  newsCard: {
+    backgroundColor: "white",
+    padding: "20px",
     borderRadius: "10px",
-    padding: "15px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    transition: "transform 0.3s ease",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+    transition: "transform 0.2s ease-in-out"
   },
-  cardTitle: {
-    fontSize: "1.2rem",
+  newsCardHover: {
+    transform: "scale(1.02)"
+  },
+  newsTitle: {
+    fontSize: "1.3rem",
     marginBottom: "10px",
-    color: "#222",
+    color: "#0d6efd"
   },
-  cardContent: {
+  newsContent: {
     fontSize: "1rem",
-    color: "#555",
-    marginBottom: "10px",
+    lineHeight: "1.5",
+    marginBottom: "10px"
   },
-  date: {
-    fontSize: "0.9rem",
-    color: "#888",
-  },
-  loading: {
-    textAlign: "center",
-    color: "#777",
-  },
-  ads: {
-    margin: "20px 0",
-    textAlign: "center",
+  newsDate: {
+    fontSize: "0.85rem",
+    color: "#6c757d"
   },
   footer: {
+    backgroundColor: "#212529",
+    color: "white",
     textAlign: "center",
     padding: "15px",
-    borderTop: "1px solid #ddd",
-    marginTop: "20px",
-    background: "#fff",
+    marginTop: "40px"
   },
   footerLink: {
-    color: "#007BFF",
-    textDecoration: "none",
-    margin: "0 5px",
+    color: "#0d6efd",
+    textDecoration: "none"
   },
-  copy: {
-    marginTop: "10px",
-    fontSize: "0.9rem",
-    color: "#666",
-  },
+  footerText: {
+    fontSize: "0.85rem",
+    marginTop: "10px"
+  }
 };
